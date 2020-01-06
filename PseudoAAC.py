@@ -12,6 +12,20 @@ import matplotlib.pyplot as plt
 import numpy as np
 import time
 
+def readFASTA(fileName):
+    with open(fileName , 'r') as file:
+        v = []
+        genome = ''
+        for line in file:
+            if line[0] != '>':
+                genome += line.strip()
+            else:
+                v.append(genome)
+                genome = ''
+        v.append(genome)
+        del v[0]
+        return v
+
 
 def Rvalue(aa1,aa2,AADict,Matrix):
     return sum([(Matrix[i][AADict[aa1]] - Matrix[i][AADict[aa2]]) ** 2 for i in range(len(Matrix))]) / len(Matrix)
